@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+:root {
+  @apply bg-slate-800 text-slate-100;
+}
+
+body {
+  @apply container;
+}
+
+#app {
+  @apply mx-auto flex flex-col;
+}

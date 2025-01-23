@@ -1,12 +1,13 @@
 <script setup>
-import { ref, defineEmits, defineModel, toRaw } from "vue";
+import { ref, toRaw, watch } from "vue";
 import { Counter } from "../helpers/counter";
 
 const emit = defineEmits(["change-fit"]);
+const { placeholder } = defineProps(["placeholder"]);
 
 const slots = ref(new Counter());
 
-const model = defineModel();
+const model = ref("");
 
 const parseFit = () => {
   const fit = model.value
@@ -16,8 +17,11 @@ const parseFit = () => {
 
   for (const line of fit) {
     const groups = line.match(/(.+)\sx(\d+)/);
+    const hasAmmo = line.match(/(.+),\s(.+)/);
 
-    if (!groups) {
+    if (hasAmmo) {
+      slots.value.add(hasAmmo[1]);
+    } else if (!groups) {
       slots.value.add(line);
     } else {
       slots.value.add(groups[1], parseInt(groups[2]));
@@ -27,11 +31,23 @@ const parseFit = () => {
   return toRaw(slots.value);
 };
 
+watch(model, () => {
+  slots.value.reset();
+  emit("change-fit", parseFit());
+});
+
 parseFit();
 </script>
 
 <template>
-  <textarea v-model="model" @change="emit('change-fit', parseFit())"></textarea>
+  <textarea v-model="model" rows="24" :placeholder="placeholder"></textarea>
 </template>
 
-<style scoped></style>
+<style scoped>
+@reference "../style.css";
+
+textarea {
+  @apply w-full border-2 border-solid border-slate-200 rounded-md px-4 py-2;
+  resize: none;
+}
+</style>

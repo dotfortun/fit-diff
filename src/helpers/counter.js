@@ -40,6 +40,16 @@ class Counter {
         this.items = {};
     }
 
+    total() {
+        let output = 0;
+
+        for (const key of this.keys()) {
+            output += this.items[key];
+        }
+
+        return output;
+    }
+
     static diff(left, right) {
         const keys = new Set([...left.keys(), ...right.keys()]);
         const output = new Counter();
