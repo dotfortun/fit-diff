@@ -47,7 +47,7 @@ const { text, copy, copied, isSupported } = useClipboard({
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold underline">Fit Diff</h1>
+  <h1 class="text-3xl font-bold mb-4 mt-2 text-center">Fit Diff</h1>
   <div class="flex flex-row justify-center w-full gap-2">
     <div class="min-w-1/4">
       <FitInput
