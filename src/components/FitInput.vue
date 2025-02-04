@@ -47,7 +47,7 @@ parseFit();
 @reference "../style.css";
 
 textarea {
-  @apply w-full border-2 border-solid border-slate-200 rounded-md px-4 py-2;
+  @apply w-full border-2 border-solid border-slate-200 rounded-md px-4 py-2 font-mono text-sm;
   resize: none;
 }
 </style>
