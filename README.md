@@ -1,5 +1,5 @@
-# Vue 3 + Vite
+# Fitt Diff Tool
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Built in Vue/Vite based on a request in corp chat to get the changelogs running.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+Doesn't know anything about what mods are being swapped for what, but tells you what has changed at least.  That would absolutely be project bloat (mind you, I started building the API to support that functionality.)
