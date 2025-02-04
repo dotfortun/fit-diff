@@ -28,7 +28,22 @@ const diffMarkdown = computed(() => {
     "\n```"
   );
 });
-const { text, copy, copied, isSupported } = useClipboard({ diffMarkdown });
+
+const diffText = computed(() => {
+  const diff = Object.entries(
+    Counter.diff(leftCount.value, rightCount.value).toObject()
+  );
+
+  return diff
+    .filter((item) => item[1])
+    .map((item) => `- ${item[1]} ${item[0]}`)
+    .join("\n");
+});
+
+const { text, copy, copied, isSupported } = useClipboard({
+  diffMarkdown,
+  diffText,
+});
 </script>
 
 <template>
@@ -63,8 +78,15 @@ const { text, copy, copied, isSupported } = useClipboard({ diffMarkdown });
           <li>Add fit to diff</li>
         </template>
       </ul>
-      <div class="copy-button" @click="copy(diffMarkdown)">
-        <i class="fa-solid fa-copy"></i>
+      <div class="copy-button-container">
+        <div
+          :class="`button${diffText ? '' : ' inactive'} fa-solid fa-copy`"
+          @click="diffText.length ? copy(diffText) : null"
+        ></div>
+        <div
+          :class="`button${diffText ? '' : ' inactive'} fa-brands fa-markdown`"
+          @click="diffText ? copy(diffMarkdown) : null"
+        ></div>
       </div>
     </div>
     <div class="min-w-1/4">
@@ -88,8 +110,16 @@ div.diff {
   @apply relative;
 }
 
-div.copy-button {
+div.copy-button-container {
   @apply absolute bottom-2 left-3;
+}
+
+div.button {
+  @apply bg-slate-800 p-2 rounded-md active:bg-slate-500 mx-0.5 cursor-copy;
+}
+
+div.button.inactive {
+  @apply bg-slate-900 text-slate-500 active:bg-slate-900 cursor-default;
 }
 
 li::before {
