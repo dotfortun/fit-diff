@@ -4,6 +4,9 @@ import { useClipboard } from "@vueuse/core";
 
 import FitInput from "./components/FitInput.vue";
 import { Counter } from "./helpers/counter";
+import { useModuleStore } from "./stores/modules";
+
+const moduleStore = useModuleStore();
 
 const leftCount = ref(new Counter());
 const rightCount = ref(new Counter());
